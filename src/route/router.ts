@@ -40,9 +40,12 @@ productRouter.get('/precio',(_, res) =>{
 });
 
 //3)
-productRouter.get('/:productnombre',(req, res) =>{
+productRouter.put('/:productnombre',(req, res) =>{
     const { productnombre } = req.params;
     res.send(productnombre)
+
+
+
 });
 
 //4)
@@ -98,8 +101,17 @@ productRouter.get('/pais/:pais', (req, res) => {
 
 
 //7)
-productRouter.post('/7',(_, res) =>{
-    res.send()
+productRouter.put('/productos/agregar',(req, res) =>{
+    const {nombre,precio,modelo,pais_de_origen} = req.body;
+    if (nombre && precio && modelo && pais_de_origen ) { 
+        const Productoagregado = {nombre, precio, modelo, pais_de_origen};
+        productmercancia.push (Productoagregado)
+        res.status(201).send(productmercancia)
+    }else{
+        res.status(404).send("Faltan campos para la creacion de su producto")
+    }
+    
+
 });
 
 
