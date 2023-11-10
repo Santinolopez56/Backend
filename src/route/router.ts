@@ -1,117 +1,88 @@
 import {Router} from "express";
+import {getProducts} from "../controllers/controllers" 
+import {func} from "../controllers/controllers"
+import {precio} from "../controllers/controllers"
 
 const productRouter = Router();
 
-let productmercancia=[
-    {
-    nombre:"Flores",
-    modelo:"Tulipan",
-    pais_de_origen:"Mongolia",
-    precio:50
-    },
 
-    {
-    nombre:"Teclado",
-    modelo:"Redragon kumara",
-    pais_de_origen:"China",
-    precio:30000
-    },
 
-    {
-    nombre:"Cerveza",
-    modelo:"Alemana",
-    pais_de_origen:"Alemania",
-    precio:120
-    }  
-]
+productRouter.get('/',func);
 
-productRouter.get('/',(_, res) =>{
-    res.send("Funciona")
-});
+productRouter.get("/product", getProducts);
 
-//1)
-productRouter.get('/productos',(_, res) =>{
-    res.send(productmercancia)
-});
-
-//2)
-productRouter.get('/precio',(_, res) =>{
-    res.send(productmercancia.filter(productos => productos.precio > 100))
-});
+productRouter.get('/precio',precio);
 
 //3)
 productRouter.put('/:productnombre',(req, res) =>{
     const { productnombre } = req.params;
     res.send(productnombre)
-
-
-
 });
 
 //4)
-productRouter.get('/productos/:modelo',(req, res) =>{
-    const { modelo } = req.params;
-    const longitud = productmercancia.length;
+// productRouter.get('/productos/:modelo',(req, res) =>{
+//     const { modelo } = req.params;
+//     const longitud = productmercancia.length;
 
-    productmercancia = productmercancia.filter (producto=> producto.modelo !== modelo); 
+//     productmercancia = productmercancia.filter (producto=> producto.modelo !== modelo); 
     
-    if (productmercancia.length === longitud){
-        res.status(404).send ("No existe ese producto");
+//     if (productmercancia.length === longitud){
+//         res.status(404).send ("No existe ese producto");
 
-    } else {
+//     } else {
 
-       res.send("Se elimino su producto correctamente");
+//        res.send("Se elimino su producto correctamente");
         
-    }
-});
+//     }
+// });
 
 //5)
-productRouter.get('/pais/:pais', (req, res) => {
-    const { pais } = req.params;
+// productRouter.get('/pais/:pais', (req, res) => {
+//     const { pais } = req.params;
 
-    const productosPorPais = productmercancia.find(producto => producto.pais_de_origen === pais);
+//     const productosPorPais = productmercancia.find(producto => producto.pais_de_origen === pais);
   
-    if (productosPorPais) {
+//     if (productosPorPais) {
     
-        res.json(productosPorPais);
+//         res.json(productosPorPais);
 
-    } else {
+//     } else {
 
-        res.status(404).send('No se encontraron productos con ese pais.');
+//         res.status(404).send('No se encontraron productos con ese pais.');
         
-    }
-  });
+//     }
+//   });
 
 //6)
-  productRouter.get('/precio/:precio', (req, res) => {
-    const { precio } = req.params;
+//   productRouter.get('/precio/:precio', (req, res) => {
+//     const { precio } = req.params;
 
-    const productosPorPrecio = productmercancia.find(producto => producto.precio === Number (precio));
+//     const productosPorPrecio = productmercancia.find(producto => producto.precio === Number (precio));
   
-    if (productosPorPrecio) {
+//     if (productosPorPrecio) {
     
-        res.json(productosPorPrecio);
+//         res.json(productosPorPrecio);
 
-    } else {
+//     } else {
 
-        res.status(404).send('No se encontraron productos con ese pais.');
+//         res.status(404).send('No se encontraron productos con ese pais.');
         
-    }
-  });
+//     }
+//   });
 
 
 //7)
-productRouter.put('/productos/agregar',(req, res) =>{
-    const {nombre,precio,modelo,pais_de_origen} = req.body;
-    if (nombre && precio && modelo && pais_de_origen ) { 
-        const Productoagregado = {nombre, precio, modelo, pais_de_origen};
-        productmercancia.push (Productoagregado)
-        res.status(201).send(productmercancia)
-    }else{
-        res.status(404).send("Faltan campos para la creacion de su producto")
-    }
+// productRouter.put('/productos/agregar',(req, res) =>{
+//     const {nombre,precio,modelo,pais_de_origen} = req.body;
+//     if (nombre && precio && modelo && pais_de_origen ) { 
+//         const Productoagregado = {nombre, precio, modelo, pais_de_origen};
+//         productmercancia.push (Productoagregado)
+//         res.status(201).send(productmercancia)
+//     }else{
+//         res.status(404).send("Faltan campos para la creacion de su producto")
+//     }
     
 
-});
+// });
 
 export default productRouter;
