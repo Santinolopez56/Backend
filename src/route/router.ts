@@ -114,7 +114,4 @@ productRouter.put('/productos/agregar',(req, res) =>{
 
 });
 
-
-
 export default productRouter;
-

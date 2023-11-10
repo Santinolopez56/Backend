@@ -1,4 +1,5 @@
 import express from 'express';
+import "reflect-metadata"
 import productRouter from "..//src/route/router";
 
 const app = express();
